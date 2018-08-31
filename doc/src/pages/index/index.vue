@@ -12,6 +12,9 @@
             </div>
         </div>
 
+        <!-- critical -->
+        <div class='critical'>{{critical}}</div>
+
         <!-- 搜索框 -->
         <div class="form-search">
             <input type="text" confirm-type="search" v-model='sip' class="form-control" placeholder="输入ip地址" />
@@ -21,7 +24,7 @@
         <!-- error message -->
         <div>{{msg}}</div>
 
-        <div v-show="show === 1">
+        <div v-show="show === 1" class='ipinfo'>
             <div class='show'>{{ipshow}}: {{ipinfo.ip}}</div>
             <div class='show'>城市id: {{ipinfo.city_id}}</div>
             <div class='show'>国家: {{ipinfo.country}}</div>
@@ -33,7 +36,7 @@
             <div class='show'>纬度: {{latitude}}</div>
         </div>
 
-        <map id='map' :longitude="longitude" :latitude="latitude" scale="14" show-location style="width: 90%; height: 300px;"></map>
+        <map id='map' :longitude="longitude" :latitude="latitude" scale="14" show-location class='map'></map>
 
     </div>
 </template>
@@ -54,6 +57,8 @@ export default {
             ipshow: '当前所在ip',
             longitude: '',
             latitude: '',
+            critical: '',
+            copyFlag: 0,
         }
     },
 
@@ -68,6 +73,31 @@ export default {
     },
 
     methods: {
+        setClipboard() {
+            var setCritical = this.setCritical;
+            var nickname = '';
+            if (this.userInfo.nickName == undefined) {
+                nickname = '-';
+            } else {
+                nickname = this.userInfo.nickName;
+            }
+            var copy = '本人遇到紧急情况, 需要求救, 以下为定位信息' + '\n'
+            + '微信昵称: ' + nickname + '\n'
+            + '经度: ' + this.longitude + '\n'
+            + '纬度: ' + this.latitude + '\n'
+            + '当前所在ip: ' + this.ipinfo.ip + '\n'
+            + '省份: ' + this.ipinfo.province + '\n'
+            + '城市: ' + this.ipinfo.city + '\n'
+            + '国家: ' + this.ipinfo.country + '\n'
+            + '区域: ' + this.ipinfo.area + '\n'
+            + '运营商: ' + this.ipinfo.isp;
+            wx.setClipboardData({
+                data: copy,
+                success: function(res) {
+                    setCritical('当前信息已复制到剪切板, 如遇紧急情况可以发送短信`12110`进行报警')
+                }
+            })
+        },
         getLoc() {
             var setmap = this.setMap;
             wx.getLocation({
@@ -133,10 +163,15 @@ export default {
         },
         setIPInfoValue(ipinfo) {
             this.ipinfo = ipinfo;
+            this.copyFlag += 1;
         },
         setMap(lat, long) {
             this.longitude = long;
             this.latitude = lat;
+            this.copyFlag += 1;
+        },
+        setCritical(msg) {
+            this.critical = msg;
         },
         isValidIP(ip) {
             var reg = /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/
@@ -156,6 +191,14 @@ export default {
         },
         clickHandle (msg, ev) {
             console.log('clickHandle:', msg, ev)
+        }
+    },
+    
+    watch: {
+        copyFlag: function() {
+            if (this.copyFlag == 2) {
+                this.setClipboard();
+            }
         }
     }
 }
@@ -201,5 +244,20 @@ export default {
 
 .show {
     align: left;
+}
+
+.critical {
+    color: red;
+    width: 80%;
+    font-size:16px;
+}
+
+.map {
+    width: 90%;
+    height: 300px;
+}
+
+.ipinfo {
+    width: 80%;
 }
 </style>
