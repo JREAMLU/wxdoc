@@ -4,9 +4,11 @@
         <div class="userinfo">
             <!-- 头像 -->
             <img class="userinfo-avatar" v-if="userInfo.avatarUrl" :src="userInfo.avatarUrl" background-size="cover" />
+            <open-data type="userAvatarUrl"></open-data>
             <!-- 昵称 -->
             <div class="userinfo-nickname">
                 <card :text="userInfo.nickName"></card>
+                <open-data type="userNickName"></open-data>
             </div>
         </div>
 
