@@ -1,11 +1,11 @@
 {
-  "pages": [
-    "pages/index/main"
-  ],
-  "window": {
-    "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "IP查查查",
-    "navigationBarTextStyle": "black"
-  }
+    "pages": [
+        "pages/index/main"
+    ],
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTitleText": "IP查查查",
+        "navigationBarTextStyle": "black"
+    }
 }
