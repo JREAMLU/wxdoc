@@ -4,11 +4,9 @@
         <div class="userinfo">
             <!-- 头像 -->
             <img class="userinfo-avatar" v-if="userInfo.avatarUrl" :src="userInfo.avatarUrl" background-size="cover" />
-            <open-data type="userAvatarUrl"></open-data>
             <!-- 昵称 -->
             <div class="userinfo-nickname">
                 <card :text="userInfo.nickName"></card>
-                <open-data type="userNickName"></open-data>
             </div>
         </div>
 
@@ -182,7 +180,9 @@ export default {
             wx.login({
                 success: () => {
                     wx.getUserInfo({
-                        success: (res) => { this.userInfo = res.userInfo
+                        success: (res) => { 
+                            this.userInfo = res.userInfo
+                            this.copyFlag += 1;
                             console.log(res.userInfo);
                         }
                     })
@@ -196,7 +196,7 @@ export default {
     
     watch: {
         copyFlag: function() {
-            if (this.copyFlag == 2) {
+            if (this.copyFlag == 3) {
                 this.setClipboard();
             }
         }
