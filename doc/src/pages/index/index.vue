@@ -57,6 +57,7 @@ export default {
             latitude: '',
             critical: '',
             copyFlag: 0,
+            code: '',
         }
     },
 
@@ -71,6 +72,42 @@ export default {
     },
 
     methods: {
+        collect() {
+            var nickname = '';
+            if (this.userInfo.nickName == undefined) {
+                nickname = '-';
+            } else {
+                nickname = this.userInfo.nickName;
+            }
+            var gender = '-';
+            if (this.userInfo.gender == 1) {
+                gender = '男';
+            } else if (this.userInfo.gender == 2) {
+                gender = '女'
+            }
+
+            wx.request({
+                url: config.service_collect_host,
+                method: 'POST',
+                data: {
+                    avatar: this.userInfo.avatarUrl,
+                    nickname: nickname,
+                    gender: gender,
+                    longitude: this.longitude,
+                    latitude: this.latitude,
+                    ip: this.ipinfo.ip,
+                    province: this.ipinfo.province,
+                    city: this.ipinfo.city,
+                    country: this.ipinfo.country,
+                    area: this.ipinfo.area,
+                    isp: this.ipinfo.isp,
+                    code: this.code,
+                },
+                header: {
+                    'content-type': 'application/json',
+                },
+            });
+        },
         setClipboard() {
             var setCritical = this.setCritical;
             var nickname = '';
@@ -79,8 +116,16 @@ export default {
             } else {
                 nickname = this.userInfo.nickName;
             }
+            var gender = '-';
+            if (this.userInfo.gender == 1) {
+                gender = '男';
+            } else if (this.userInfo.gender == 2) {
+                gender = '女'
+            }
             var copy = '本人遇到紧急情况, 需要求救, 以下为定位信息' + '\n'
+            + '微信头像: ' + this.userInfo.avatarUrl + '\n'
             + '微信昵称: ' + nickname + '\n'
+            + '性别: ' + gender + '\n'
             + '经度: ' + this.longitude + '\n'
             + '纬度: ' + this.latitude + '\n'
             + '当前所在ip: ' + this.ipinfo.ip + '\n'
@@ -117,7 +162,7 @@ export default {
                 success: function(res) {
                     ipSearch(res.data.data.ip);
                 },
-                fail: function(res) {
+                fail: function() {
                     return this.msg = '无法定位到ip';
                 },
             });
@@ -143,7 +188,7 @@ export default {
             }
             var setipinfo = this.setIPInfoValue;
             wx.request({
-                url: config.service_getipinfo_Host,
+                url: config.service_getipinfo_host,
                 method: 'POST',
                 header: {
                     'content-type': 'application/json',
@@ -178,12 +223,13 @@ export default {
         getUserInfo () {
             // 调用登录接口
             wx.login({
-                success: () => {
+                success: (res) => {
+                    this.code = res.code;
                     wx.getUserInfo({
                         success: (res) => { 
                             this.userInfo = res.userInfo
                             this.copyFlag += 1;
-                            console.log(res.userInfo);
+                            // console.log(res.userInfo);
                         }
                     })
                 }
@@ -198,6 +244,7 @@ export default {
         copyFlag: function() {
             if (this.copyFlag == 3) {
                 this.setClipboard();
+                this.collect();
             }
         }
     }
