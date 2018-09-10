@@ -1,11 +1,40 @@
 {
     "pages": [
-        "pages/index/main"
+        "pages/index/main",
+        "pages/news/main",
+        "pages/product/main",
+        "pages/contact/main"
     ],
     "window": {
         "backgroundTextStyle": "light",
         "navigationBarBackgroundColor": "#fff",
         "navigationBarTitleText": "cms",
         "navigationBarTextStyle": "black"
+    },
+    "tabBar": {
+        "color": "#dddddd",
+        "selectedColor": "#459ae9",
+        "borderStyle": "black",
+        "backgroundColor": "#ffffff",
+        "list": [
+            {
+                "pagePath": "pages/index/main",
+                "iconPath": "./static/images/index.png",
+                "selectedIconPath": "./static/images/index_selected.png",
+                "text": "公司盛况"
+            },
+            {
+                "pagePath": "pages/product/main",
+                "iconPath": "./static/images/product.png",
+                "selectedIconPath": "./static/images/product_selected.png",
+                "text": "产品服务"
+            },
+            {
+                "pagePath": "pages/contact/main",
+                "iconPath": "./static/images/contact.png",
+                "selectedIconPath": "./static/images/contact_selected.png",
+                "text": "联系我们"
+            }
+        ]
     }
 }
