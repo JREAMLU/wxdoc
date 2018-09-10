@@ -52,8 +52,8 @@ export default {
               {'pic': 'http://www.jsssha.com/wp-content/uploads/2017/01/video.jpeg', 'link': '/pages/video/video'},
               {'pic': 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', 'link': ''}
             ],
-            indicatorDots: false,
-            autoplay: false,
+            indicatorDots: true,
+            autoplay: true,
             interval: 5000,
             duration: 1000,
 
