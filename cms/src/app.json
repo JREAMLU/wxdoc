@@ -4,7 +4,8 @@
         "pages/news/main",
         "pages/news-detail/main",
         "pages/product/main",
-        "pages/contact/main"
+        "pages/contact/main",
+        "pages/video/main"
     ],
     "window": {
         "backgroundTextStyle": "light",

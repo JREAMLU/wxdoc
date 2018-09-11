@@ -28,11 +28,13 @@ export default {
             latitude: 31.838403,
             longitude: 120.528958,
             scale: 16,
-            markers: [{
-              latitude: 31.838403,
-              longitude: 120.528958,
-              name: '华东国际大厦5F'
-            }]
+            markers: [
+                {
+                    latitude: 31.838403,
+                    longitude: 120.528958,
+                    name: '华东国际大厦5F'
+                }
+            ]
         }
     },
 
