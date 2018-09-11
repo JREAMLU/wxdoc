@@ -3,7 +3,7 @@
         <div class="news">
             <text class="news-title">惠民通APP</text>
             <block v-for="item in products" :key="item.id">
-                <a :href="'/pages/news/news-details?id=' + item.id">
+                <a :href="'/pages/news-detail/main?id=' + item.id">
                     <div class="news-item line">
                         <div class="news-item-pic">
                             <image mode="widthFix" :src="item.pic" class="news-item-image" width="" height=""></image>
@@ -20,7 +20,7 @@
         <div class="news">
             <text class="news-title">服务理念</text>
             <block v-for="item in services" :key="item.id">
-                <a :href="'/pages/news/news-details?id=' + item.id">
+                <a :href="'/pages/news-detail/main?id=' + item.id">
                     <div class="news-item line">
                         <div class="news-item-pic">
                             <image mode="widthFix" :src="item.pic" class="news-item-image" width="" height=""></image>
