@@ -9,7 +9,7 @@
 	},
 	"miniprogramRoot": "./dist/",
 	"compileType": "miniprogram",
-	"appid": "wxab9350bbd7102b7c",
+	"appid": "wx626b9c307f23c0fb",
 	"projectname": "cms",
 	"condition": {
 		"search": {

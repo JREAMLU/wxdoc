@@ -16,7 +16,7 @@
                 </a>
             </block>
         </div>
-        
+
         <div class="news">
             <text class="news-title">服务理念</text>
             <block v-for="item in services" :key="item.id">
@@ -87,7 +87,46 @@ export default {
     created () {
     },
 
+    onLoad() {
+        this.getProducts();
+        this.getServices();
+    },
+
     methods: {
+        getProducts() {
+            var that = this;
+            wx.request({
+                url: config.API_URL.NEWS,
+                method: 'POST',
+                data: {
+                    pageindex: 9,
+                    pagesize: 1,
+                },
+                header: {
+                    'content-type': 'application/json',
+                },
+                success: function(res) {
+                   that.news = res.data.data.list;
+                },
+            });
+        },
+        getServices() {
+            var that = this;
+            wx.request({
+                url: config.API_URL.NEWS,
+                method: 'POST',
+                data: {
+                    pageindex: 10,
+                    pagesize: 4,
+                },
+                header: {
+                    'content-type': 'application/json',
+                },
+                success: function(res) {
+                   that.news = res.data.data.list;
+                },
+            });
+        }
     },
 
     watch: {

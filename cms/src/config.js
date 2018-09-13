@@ -1,11 +1,11 @@
-const service_ip_host = 'https://api.o9d.com.cn/service/ip'
-const service_getipinfo_host = 'https://api.o9d.com.cn/service/getipinfo'
-const service_collect_host = 'https://api.o9d.com.cn/collect/ip'
+var API_BASE = 'https://api.o9d.com.cn';
 
 const config = {
-    service_ip_host,
-    service_getipinfo_host,
-    service_collect_host,
+    API_URL: {
+        NEWS: API_BASE + '/cms/get/news',
+        SLIDE: API_BASE + '/cms/get/slideshow',
+        CONTACT: API_BASE + '/cms/get/contact',
+    }
 }
 
 export default config
